@@ -8,14 +8,14 @@ Class src.Hosts.PalindromeProcess Extends Ens.BusinessProcess
 Method onRequest(request as %File.String, response as %RegisteredObject) As %Status
 {
   set tsc=$$$OK;
-  do #class(src.Custom.PalindromeProcess).PaliSubString(request,.response);
+  do ..PaliSubString(request,.response);
   do ..StoreSQL(response);
   Set tSC = ..SendRequestAsync(TargetConfigNames, response)
 
 }
 
 
-Method PaliSubString(word as %File.String, output as %File.String) As %Status
+ClassMethod PaliSubString(word as %File.String, output as %File.String) As %Status
 {
      set n = CHAR_LENGTH(word); 
       
@@ -42,7 +42,7 @@ Method PaliSubString(word as %File.String, output as %File.String) As %Status
     }
 }
 
-Method StoreSQL(paliWord as %File.String)
+ClassMethod StoreSQL(paliWord as %File.String)
 {
   SET sql=6
   SET sql(1)="CREATE TABLE mytable"
